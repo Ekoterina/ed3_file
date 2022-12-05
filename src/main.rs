@@ -8,17 +8,11 @@ fn read_file(path: &str) -> Result <String, std::io::Error> {
     let mut text = String::new();
     File::open(path)?.read_to_string(&mut text)?;
     Ok(text)
-
-    //fs::read_to_string(path)
 }
 
 //Функция открывает и читает файл в строку, возвращает считанную строку, при ошибках
 //открытия или чтения генерирует панику.
 fn read_file_exact(path: &str) -> String {
-    //File::open(path).unwrap();
-    //let text = fs::read_to_string(path).unwrap();
-    //text
-
     fs::read_to_string(path).unwrap()
 }
 
@@ -29,9 +23,11 @@ fn main() {
     let file = "text.txt";
     let file2 = "text2.txt";
 
-    //let text1 = read_file(file);
-    //read_file(file);
-    //println!("{text1}");
+    let text1: String = match read_file(file) {
+        Ok(text) => text,
+        Err(e) => e.to_string()
+    };
+    println!("{text1}");
 
     let text2 = read_file_exact(file2);
     println!("{text2}");
